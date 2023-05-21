@@ -1,5 +1,6 @@
 <?php
-
+    session_start();
+    
     $host = 'devkinsta_db';
     $dbname = 'Todolist_2';
     $dbuser = 'root';
@@ -10,8 +11,8 @@
         $dbpassword
     );
 
-    $task_completed = $_POST["task_completed"];
-    $task_id = $_POST["task_id"];
+    $task_completed = $_POST["update_completed"];
+    $task_id = $_POST["update_id"];
 
     if ( $task_completed == 1 ){
         $task_completed = 0;

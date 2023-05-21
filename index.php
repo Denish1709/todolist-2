@@ -1,4 +1,7 @@
 <?php 
+
+session_start();
+
   $tasks = [];
 
   $host = 'devkinsta_db';
@@ -38,48 +41,55 @@
     </style>
   </head>
   <body>
+  <div class="card rounded shadow-sm mx-auto my-4" style="max-width: 500px;">
+        <div class="card-body">
+            <h3 class="card-title mb-3">My Classroom</h3>
+            <div class="d-flex gap-3">
+                <?php if ( isset( $_SESSION["users"] ) ) { ?>
+                    <a href="logout.php">Logout</a>
+                <?php } else { ?>
+                    <a href="login.php">Login</a>
+                    <a href="signup.php">Sign Up</a>
+                <?php } ?>
+            </div>
+
+  <?php if ( isset( $_SESSION["users"] ) ) { ?>
     <div
       class="card rounded shadow-sm"
-      style="max-width: 500px; margin: 60px auto"
+      style="max-width: 500px; margin: 60px auto;"
     >
       <div class="card-body">
         <h3 class="card-title mb-3">My Todo List</h3>
         <ul class="list-group">
-        <?php foreach ($todo as $todos ) : ?>
-          <li
-            class="list-group-item d-flex justify-content-between align-items-center"
-          >
-            <div>
-            <form method="POST" action="update_task.php">
-                <input 
-                    type="hidden"
-                    name="task_id"
-                    value="<?= $todos["id"]; ?>"
-                    />
-                <input 
-                    type="hidden"
-                    name="task_completed"
-                    value="<?= $todos["completed"]; ?>"
-                    />
-              <?php 
-                if ( $todos['completed'] == 1) {
-                  echo '<button class="btn btn-sm btn-success">'.
-                  '<i class="bi bi-check-square"></i>'.'</button>'.'<span class="ms-2 text-decoration-line-through">'.$todos["task"].'</span>';
-                } else {
-                  echo '<button class="btn btn-sm btn-light">'.
-                  '<i class="bi bi-square"></i>'.'</button>'.'<span class="ms-2">'.$todos["task"].'</span>';
-                }
-              ?>
-              
-            </form>
+          <?php foreach ($todo as $student) : ?>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <form method="POST" action="update_task.php">
+                  <input 
+                      type="hidden"
+                      name="update_completed"
+                      value="<?= $student["completed"]; ?>"
+                      />
+                      <input 
+                        type="hidden"
+                        name="update_id"
+                        value="<?= $student["id"]; ?>"
+                      />
+
+                  <?php if($student['completed'] == 1) {
+                      echo '<button class="btn btn-sm btn-success">'.'<i class="bi bi-check-square"></i>'.'</button>'.'<span class="ms-2 text-decoration-line-through">' . $student['task'] . '</span>';
+                    } else {
+                      echo '<button class="btn btn-sm btn-light">'.'<i class="bi bi-square"></i>'.'</button>'.'<span class="ms-2">' . $student['task'] . '</span>';                    
+                      }
+                    ?>
+                </form>
                   </div>
                   <div>
-                  
                   <form method="POST" action="delete_task.php">
                       <input 
                           type="hidden"
                           name="task_id"
-                          value="<?= $todos["id"]; ?>"
+                          value="<?= $student["id"]; ?>"
                           />
                           <button class="btn btn-sm btn-danger">
                       <i class="bi bi-trash"></i>
@@ -98,16 +108,12 @@
                     name="task_name"
                     required
                   />
-                  <input 
-                            type="hidden"
-                            name="task_id"
-                            value="<?= $todos["id"]; ?>"
-                            />
                   <button class="btn btn-primary btn-sm rounded ms-2">Add</button>
                 </form>
               </div>
             </div>
           </div>
+          <?php } ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>

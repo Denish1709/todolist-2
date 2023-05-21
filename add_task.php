@@ -16,11 +16,11 @@
   if (empty($task_name)) {
     echo "error";
   } else {
-    $sql = 'INSERT INTO todo(`task`, `completed`) VALUES (:task, :completed)';
+    $sql = 'INSERT INTO todo (`task`, `completed`) VALUES (:task, :completed)';
     $query = $database->prepare($sql);
     $query->execute([
         'task' => $task_name,
-        'completed' => 0,
+        'completed' => 0
     ]);
 
     header("Location: index.php");
