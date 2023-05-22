@@ -18,7 +18,7 @@
 
     // 1. make sure all fields are not empty
     if ( empty($email) || empty($password) ) {
-        echo 'All fields are required';
+        $error =  'All fields are required';
     } else {
         // retrieve the user based on the email provided
         // recipe
@@ -34,20 +34,29 @@
 
         // make sure the email provided is in the database
         if ( empty( $user ) ) {
-            echo "The email provided does not exists";
+            $error = "The email provided does not exists";
         } else {
             // make sure password is correct
             if ( password_verify( $password, $user["password"] ) ) {
                 // if password is valid, set the user session
                 $_SESSION["users"] = $user;
 
-                header("Location: index.php");
+                header("Location: /");
                 exit;
             } else {
                 // if password is incorrect
-                echo "The password provided is not match";
+                $error = "The password provided is not match";
             }
         }
 
     }
+    // do error checking
+    if ( isset( $error ) ) {
+        // store the error message in session
+        $_SESSION['error'] = $error;
+        // redirect the user back to /login
+        header("Location: /login");
+        exit;
+    }
     
+?>

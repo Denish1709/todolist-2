@@ -1,4 +1,7 @@
 <?php 
+
+  session_start();
+
   $tasks = [];
 
   $host = 'devkinsta_db';
@@ -14,7 +17,7 @@
   $task_name = $_POST['task_name'];
 
   if (empty($task_name)) {
-    echo "error";
+    $error = "Please Add Task";
   } else {
     $sql = 'INSERT INTO todo (`task`, `completed`) VALUES (:task, :completed)';
     $query = $database->prepare($sql);
@@ -23,7 +26,15 @@
         'completed' => 0
     ]);
 
-    header("Location: index.php");
+    header("Location: /");
+    exit;
+  }
+
+  if ( isset( $error ) ) {
+    // store the error message in session
+    $_SESSION['error'] = $error;
+    // redirect the user back to /login
+    header("Location: /");
     exit;
   }
 ?>

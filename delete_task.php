@@ -27,8 +27,8 @@
             'id' => $task_id
         ]);
 
-        // redirect to the index.php
-        header("Location: index.php");
+        // redirect to the /
+        header("Location: /");
         exit;
 
     }

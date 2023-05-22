@@ -35,8 +35,8 @@
             'id' => $task_id
         ]);        
         
-        // 3. redirect the user back to index.php
-        header("Location: index.php");
+        // 3. redirect the user back to /
+        header("Location: /");
         exit;
 
     }

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,6 +21,15 @@
     <div class="card rounded shadow-sm mx-auto my-4" style="max-width: 500px;">
         <div class="card-body">
             <h3 class="card-title mb-3">Sign up a new account</h3>
+            <?php if ( isset( $_SESSION['error'] ) ) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= $_SESSION['error']; ?>
+                    <?php
+                        // once it's printed, you delete the session
+                        unset( $_SESSION['error'] );
+                    ?>
+                </div>
+            <?php endif; ?>
             <form action="do_signup.php" method="POST">
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
