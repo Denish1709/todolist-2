@@ -16,7 +16,7 @@
     } else if ( $path == 'signup') {
         //load signup.php
         require "signup.php";
-    } else if ( $_path == 'logout') {
+    } else if ( $path == 'logout') {
         // load logout.php
         require "logout.php";
     } else {

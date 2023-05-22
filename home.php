@@ -44,7 +44,7 @@
         <div class="card-body">
             <h3 class="card-title mb-3">My Classroom</h3>
             <div class="d-flex gap-3">
-                <?php if ( isset( $_SESSION["users"] ) ) { ?>
+                <?php if ( isset( $_SESSION["user"] ) ) { ?>
                     <a href="/logout">Logout</a>
                 <?php } else { ?>
                     <a href="/login">Login</a>
@@ -52,7 +52,7 @@
                 <?php } ?>
             </div>
 
-  <?php if ( isset( $_SESSION["users"] ) ) { ?>
+  <?php if ( isset( $_SESSION["user"] ) ) { ?>
     <div
       class="card rounded shadow-sm"
       style="max-width: 500px; margin: 60px auto;"

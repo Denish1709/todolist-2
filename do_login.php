@@ -39,7 +39,7 @@
             // make sure password is correct
             if ( password_verify( $password, $user["password"] ) ) {
                 // if password is valid, set the user session
-                $_SESSION["users"] = $user;
+                $_SESSION["user"] = $user;
 
                 header("Location: /");
                 exit;
