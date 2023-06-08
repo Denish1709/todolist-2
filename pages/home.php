@@ -1,48 +1,23 @@
-<?php 
+<?php
 
-
+//
   $tasks = [];
-
-  $host = 'devkinsta_db';
-  $dbname = 'Todolist_2';
-  $dbuser = 'root';
-  $dbpassword = 'aqvEwR9D41FvwC6l';
-  $database = new PDO (
-      "mysql:host=$host;dbname=$dbname",
-      $dbuser,
-      $dbpassword
-  );
-
-  $sql = 'SELECT * FROM todo';
-  $query = $database->prepare($sql);
-  $query->execute();
-  $todo = $query->fetchAll();
+//
+//$database = connectToDB();
+$db = new DB();
+//
+//
+//  $query = $database->prepare($sql);
+//  $query->execute();
+  $todo = $db->fetchAll('SELECT * FROM todo');
+//
+  require "parts/header.php";
 ?>
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>TODO App</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
-    />
-    <style type="text/css">
-      body {
-        background: #444;
-      }
-    </style>
-  </head>
-  <body>
+
   <div class="card rounded shadow-sm mx-auto my-4" style="max-width: 500px;">
         <div class="card-body">
-            <h3 class="card-title mb-3">My Classroom</h3>
+            <h3 class="card-title mb-3">My</h3>
             <div class="d-flex gap-3">
                 <?php if ( isset( $_SESSION["user"] ) ) { ?>
                     <a href="/logout">Logout</a>
@@ -63,7 +38,7 @@
           <?php foreach ($todo as $student) : ?>
             <li class="list-group-item d-flex justify-content-between align-items-center">
               <div>
-                <form method="POST" action="update_task.php">
+                <form method="POST" action="tasks/update">
                   <input 
                       type="hidden"
                       name="update_completed"
@@ -84,7 +59,7 @@
                 </form>
                   </div>
                   <div>
-                  <form method="POST" action="delete_task.php">
+                  <form method="POST" action="tasks/delete">
                       <input 
                           type="hidden"
                           name="task_id"
@@ -99,16 +74,8 @@
                 <?php endforeach ?>
               </ul>
               <div class="mt-4">
-              <?php if ( isset( $_SESSION['error'] ) ) : ?>
-                <div class="alert alert-danger" role="alert">
-                    <?= $_SESSION['error']; ?>
-                    <?php
-                        // once it's printed, you delete the session
-                        unset( $_SESSION['error'] );
-                    ?>
-                </div>
-            <?php endif; ?>
-                <form method="POST" action="add_task.php" class="d-flex justify-content-between align-items-center">
+              <?php require "parts/message_error.php"; ?>
+                <form method="POST" action="tasks/add" class="d-flex justify-content-between align-items-center">
                   <input
                     type="text"
                     class="form-control"
@@ -123,6 +90,6 @@
           </div>
           <?php } ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
-</html>
+            <?php
+                require "parts/footer.php";
+

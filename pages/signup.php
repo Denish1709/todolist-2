@@ -30,7 +30,7 @@
                     ?>
                 </div>
             <?php endif; ?>
-            <form action="do_signup.php" method="POST">
+            <form action="auth/signup" method="POST">
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
                     <input type="text" class="form-control" id="name" name="name">
